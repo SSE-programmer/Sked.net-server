@@ -9,8 +9,9 @@ import java.util.Date;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+    @Column(name = "id")
+    @GeneratedValue(generator = "generator")
+    @GenericGenerator(name = "generator", strategy = "increment")
     private long id;
 
     @Column(name = "email")
@@ -32,9 +33,19 @@ public class User {
     private String phone;
 
     @Column(name = "registration_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date registrationDate;
 
     public User() {
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", nickname='" + nickname + '\'' +
+                '}';
     }
 
     public long getId() {

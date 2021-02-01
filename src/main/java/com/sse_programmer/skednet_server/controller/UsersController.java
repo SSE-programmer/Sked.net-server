@@ -1,25 +1,44 @@
 package com.sse_programmer.skednet_server.controller;
 
 import com.sse_programmer.skednet_server.entity.User;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.sse_programmer.skednet_server.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+//@RequestMapping("/users")
 public class UsersController {
 
-    @GetMapping(value = "/get")
+    @Autowired
+    private UserService service;
+
+    @GetMapping(value = "/users")
     @ResponseBody
-    public User getUsers() {
-        return createMockUser();
+    public List<User> getAllUsers() {
+        return service.getAll();
     }
 
-    private User createMockUser() {
+    @GetMapping(value = "/users/{id}")
+    @ResponseBody
+    public User getUser(@PathVariable long id) {
+        return service.getByID(id);
+    }
+
+    @PostMapping(value = "/users/{id}")
+    @ResponseBody
+    public User saveUser(@RequestBody User user) {
+        return service.save(user);
+    }
+
+    @DeleteMapping(value = "/users/{id}")
+    @ResponseBody
+    public void deleteUser(@PathVariable long id) {
+        service.remove(id);
+    }
+
+    /*private User createMockUser() {
         User user = new User();
         user.setEmail("admin@gmail.com");
         user.setPassword("admin");
@@ -29,5 +48,5 @@ public class UsersController {
         user.setRegistrationDate(new Date());
 
         return user;
-    }
+    }*/
 }

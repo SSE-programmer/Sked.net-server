@@ -1,6 +1,7 @@
 package com.sse_programmer.skednet_server;
 
 import com.sse_programmer.skednet_server.config.WebConfig;
+import com.sse_programmer.skednet_server.repository.UserRepository;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
